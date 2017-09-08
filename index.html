@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Trivia Game</title>
+
+    <link href="assets/css/reset.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
+	</script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous">
+	</script>
+
+
+</head>
+
+<body>
+  <h1 class="Header">Random Trivia Game</h1>
+  <h3>Time left:</h3>
+  <div class="countdown"></div>
+
+  <br>
+  
+	<table style="width:100%">
+	<tr>
+	  <td>
+	  	<div>
+
+	  		<p class="question">1. What year did World War 2 end?</p>
+
+	    	<ul>
+
+	    	<input type="radio" name="q1" value="1">
+	        <label id="correctString1">1945</label>
+
+	    	<br>
+
+	        <input type="radio" name="q1" value="0">
+	        <label>1939</label>
+
+	        <br>
+
+	        <input type="radio" name="q1" value="0">
+	        <label>1929</label>
+
+	        <br>
+
+	        <input type="radio" name="q1" value="0">
+	        <label>1950</label>
+
+    		</ul>
+
+	  	</div>
+	  </td>
+	  <td>
+	  	<div>
+
+	  		<p class="question">2. How many presidents of America have served more than two terms</p>
+
+	    	<ul>
+
+	        <input type="radio" name="q2" value="0">
+	        <label>2</label>
+
+	        <br>
+
+	        <input type="radio" name="q2" value="1">
+	        <label id="correctString2">1</label>
+
+	        <br>
+
+	        <input type="radio" name="q2" value="0">
+	        <label>3</label>
+
+	        <br>
+
+	        <input type="radio" name="q2" value="0">
+	        <label>6</label>
+
+	    	</ul>
+
+	  	</div>
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	  	<div>
+
+	  		<p class="question">3. What day is American Independence Day celebrated on?</p>
+
+	    	<ul>
+
+	        <input type="radio" name="q3" value="0">
+	        <label>5th of July</label>
+
+	        <br>
+
+	        <input type="radio" name="q3" value="1">
+	        <label id="correctString3">4th of July</label>
+
+	        <br>
+
+	        <input type="radio" name="q3" value="0">
+	        <label>9th of March</label>
+
+	        <br>
+
+	        <input type="radio" name="q3" value="0">
+	        <label>12th of January </label>
+
+	    	</ul>
+
+		</div>
+	  </td>
+	  <td>
+	  	<div>
+
+	  		<p class="question">4. Are you smart?</p>
+
+	    	<ul>
+
+	        <input type="radio" name="q4" value="0">
+	        <label>No</label>
+
+	        <br>
+
+	        <input type="radio" name="q4" value="1">
+	        <label id="correctString4">Yes</label>
+
+	        <br>
+
+	        <input type="radio" name="q4" value="0">
+	        <label>Huh</label>
+
+	        <br>
+
+	        <input type="radio" name="q4" value="0">
+	        <label>I Dont Know</label>
+
+    		</ul>
+	  	</div>
+	  </td>
+	</tr>
+	</table>
+
+  	<div>
+          <input id="submitButton" onClick="send()"
+          type="submit" value="Submit" />
+    </div>
+  
+
+    <div>
+    	<h2 id="personScore"></h2>
+    </div>
+	
+
+	<script type="text/javascript">
+
+		var startTime = "2:01";
+		
+		var interval = setInterval(function() 
+		{
+		  var timer = startTime.split(':');
+
+		  var minutes = parseInt(timer[0], 10);
+
+		  var seconds = parseInt(timer[1], 10);
+
+		  --seconds;
+
+		  minutes = (seconds < 0) ? --minutes : minutes;
+
+		  if (minutes < 0) clearInterval(interval);
+
+		  seconds = (seconds < 0) ? 59 : seconds;
+
+		  seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+		  $('.countdown').html(minutes + ':' + seconds);
+
+		  startTime = minutes + ':' + seconds;
+
+		  if (startTime == 0)
+		  {
+
+		  	alert("Time Has Run Out!")
+		  }
+		}, 1000);
+
+
+		function send() 
+		{
+
+			function answerScore (frenchtoast) {
+				var choices = document.getElementsByName(frenchtoast);
+
+				for (var i = 0, length = choices.length; i < length; i++) 
+				{
+	   				if (choices[i].checked) 
+	   				{
+						var answerValue = Number(choices[i].value);
+					}
+				}
+
+				if (isNaN(answerValue)) 
+				{
+					answerValue = 0;
+				}
+				return answerValue;
+			}
+
+
+			var score = (answerScore('q1') + answerScore('q2') + answerScore('q3') + answerScore('q4'));
+
+			var qcount = document.getElementsByClassName('question');
+
+			var qcounter = 0;
+
+			for (var i = 0, length = qcount.length; i < length; i++) 
+			{
+				qcounter++;
+			}
+
+		
+			var showScore = "Your Score: " + score +"/" + qcounter;
+		
+			if (score === qcounter) 
+			{
+				showScore = showScore + " All Correct"
+			};
+			document.getElementById('personScore').innerHTML = showScore;
+		}
+
+		$(document).ready(function() 
+		{
+
+			$('#submitButton').click(function() 
+			{
+				$(this).addClass('hide');
+			});
+
+		});
+	</script>
+
+</body>
+
+</html>
